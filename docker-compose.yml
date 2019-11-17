@@ -17,10 +17,10 @@ services:
     build:
       context: ./client/
     command: npm start
-    volumes:
+    volumes:  
       - ./client/:/usr/app
       - /usr/app/node_modules
     depends_on:
       - server
     ports:
-      - "8081:8081"
+      - "3000:3000"
