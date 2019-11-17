@@ -18,13 +18,15 @@ node('master') {
  stage('Build') {
   sh "docker images"
   //sh "docker build . -t myreact-app:${BUILD_NUMBER}"
+  sh "docker kill $(docker ps -q)"
+  sh "docker rm $(docker ps -a -q)"
   sh "/usr/local/bin/docker-compose build"
   sh "docker images"
  }
 
   stage('Deployment') {
    sh "docker ps -a"
-   sh "/usr/local/bin/docker-compose build"
+   sh "/usr/local/bin/docker-compose up"
    //sh 'docker stop myreact-app-container || exit 0'
    //sh 'docker kill myreact-app-container || exit 0'
    //sh 'docker rm myreact-app-container || exit 0'
