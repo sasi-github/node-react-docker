@@ -26,7 +26,7 @@ node('master') {
   //sh "docker kill \$(docker ps -q)"
   //sh "docker rm \$(docker ps -a -q)"
   
-  sh "/usr/local/bin/docker-compose up --build"
+  sh "/usr/local/bin/docker-compose build"
   
   sh "docker images"
  }
