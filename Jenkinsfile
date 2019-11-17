@@ -17,7 +17,7 @@ node('master') {
 
  stage('Build') {
   sh "docker images"
-  sh "docker build . -t myreact-app:${BUILD_NUMBER}"
+  //sh "docker build . -t myreact-app:${BUILD_NUMBER}"
   sh "/usr/local/bin/docker-compose up --build"
   sh "docker images"
  }
