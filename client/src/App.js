@@ -3,50 +3,60 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {};
-  }
+  state = {
+    response: '',
+    post: '',
+    responseToPost: ''
+  };
 
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState(res))
-      .catch(console.error);
+      .then(res => this.setState({ response: res.express }))
+      .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const resp = await fetch('/api');
+    const response = await fetch('/api/hello');
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
 
-    window._resp = resp;
+    return body;
+  };
 
-    let text = await resp.text();
+  handleSubmit = async e => {
+    e.preventDefault();
+    const response = await fetch('/api/world', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ post: this.state.post })
+    });
+    const body = await response.text();
 
-    let data = null;
-    try {
-      data = JSON.parse(text); // cannot call both .json and .text - await resp.json();
-    } catch (e) {
-      console.err(`Invalid json\n${e}`);
-    }
-
-    if (resp.status !== 200) {
-      throw Error(data ? data.message : 'No data');
-    }
-
-    return data;
+    this.setState({ responseToPost: body });
   };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <p>My First React App</p>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>{this.state.message || 'No message'}</p>
+        <p>{this.state.response}</p>
+        <form onSubmit={this.handleSubmit}>
+          <p>
+            <strong>Post to Server:</strong>
+          </p>
+          <input
+            type="text"
+            value={this.state.post}
+            onChange={e => this.setState({ post: e.target.value })}
+          />
+          <button type="submit">Submit</button>
+        </form>
+        <p>{this.state.responseToPost}</p>
       </div>
     );
   }
