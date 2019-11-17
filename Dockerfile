@@ -23,7 +23,6 @@ RUN npm install -qy
 COPY server/ ./
 
 ENV PORT 8000
-
 EXPOSE 8000
 
 CMD ["npm", "start"]
