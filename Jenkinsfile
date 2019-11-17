@@ -17,18 +17,11 @@ node('master') {
 
  stage('Build') {
   sh "docker images"
-  
-  //sh "docker kill container react-app-aws_client_1"
-  //sh "docker kill container react-app-aws_server_1"
   sh "docker rmi image react-app-aws_client -f"
   sh "docker rmi image react-app-aws_server -f"
-  
-  //sh "docker kill \$(docker ps -q)"
-  //sh "docker rm \$(docker ps -a -q)"
-  
-  sh "/usr/local/bin/docker-compose build"
-  
+  sh "/usr/local/bin/docker-compose build"  
   sh "docker images"
+  sh "docker ps -a"
  }
 
   stage('Deployment') {
