@@ -21,7 +21,6 @@ node('master') {
   sh "docker rmi image react-app-aws_server -f"
   sh "/usr/local/bin/docker-compose build"  
   sh "docker images"
-  sh "docker ps -a"
  }
 
   stage('Deployment') {
