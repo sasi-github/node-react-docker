@@ -17,8 +17,8 @@ node('master') {
 
  stage('Build') {
   sh "docker images"
-  sh "docker kill \$(docker ps -q)"
-  sh "docker rm \$(docker ps -a -q)"
+  //sh "docker kill \$(docker ps -q)"
+  //sh "docker rm \$(docker ps -a -q)"
   sh "/usr/local/bin/docker-compose build"
   sh "docker images"
  }
