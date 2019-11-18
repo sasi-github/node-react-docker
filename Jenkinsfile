@@ -31,7 +31,7 @@ node('master') {
    //sh 'docker rm myreact-app-container || exit 0'
    //sh "docker run --name myreact-app-container -p 8081:80 myreact-app:${BUILD_NUMBER} &"
    //sh "docker restart myreact-app-container"
-   //sh "docker ps -a"
+   sh "docker ps -a"
   }
 
 }
