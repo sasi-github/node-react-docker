@@ -25,7 +25,7 @@ node('master') {
 
   stage('Deployment') {
    sh "docker ps -a"
-   //sh "/usr/local/bin/docker-compose up"
+   sh "/usr/local/bin/docker-compose up -d"
    //sh 'docker stop myreact-app-container || exit 0'
    //sh 'docker kill myreact-app-container || exit 0'
    //sh 'docker rm myreact-app-container || exit 0'
